@@ -28,10 +28,17 @@ class LoginPage:
         self.password_input.clear()
         self.password_input.send_keys(password)
 
-    def login(self, email=None, password=None):
-        # Use default test credentials if none provided
-        email = email or Config.TEST_USER_EMAIL
-        password = password or Config.TEST_USER_PASSWORD
+    def login(self, email=None, password=None, user_type='QA'):
+        """
+        Login with provided credentials or default to specified user type
+        :param email: Optional email to override default
+        :param password: Optional password to override default
+        :param user_type: Type of user to login as (QA, ADMIN, or STANDARD)
+        """
+        if not email or not password:
+            user_creds = getattr(Config.Users, user_type, Config.Users.QA)
+            email = email or user_creds['email']
+            password = password or user_creds['password']
         
         self.set_email(email)
         self.set_password(password)
