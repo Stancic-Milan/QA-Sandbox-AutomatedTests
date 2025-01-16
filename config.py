@@ -60,6 +60,16 @@ class Config:
     ELEMENT_VISIBILITY_TIMEOUT = 10  # Timeout for element visibility
     ELEMENT_CLICKABLE_TIMEOUT = 10  # Timeout for element to be clickable
 
+    # Test Execution Settings
+    RETRY_COUNT = int(os.getenv('RETRY_COUNT', 2))  # Number of times to retry failed tests
+    PARALLEL_WORKERS = int(os.getenv('PARALLEL_WORKERS', 2))  # Number of parallel test workers
+    SCREENSHOT_ON_FAILURE = os.getenv('SCREENSHOT_ON_FAILURE', 'True').lower() == 'true'
+    VIDEO_RECORDING = os.getenv('VIDEO_RECORDING', 'False').lower() == 'true'
+
+    # Report Settings
+    REPORT_TITLE = os.getenv('REPORT_TITLE', 'Test Automation Report')
+    REPORT_TEMPLATE = os.getenv('REPORT_TEMPLATE', 'report_template.html')
+
     @classmethod
     def validate_config(cls):
         """Validate that all required environment variables are set"""
